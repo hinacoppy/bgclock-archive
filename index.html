@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta name="description" content="バックギャモンに特化したクロックとスコアボードのアプリ">
+  <meta name="author" content="(C)hinacoppy 2018/5/12">
+  <link rel="stylesheet" href="css/bgclock.css">
+<!--  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bgclock.js"></script>
+  <title>Backgammon Clock and Score board App</title>
+</head>
+<body>
+
+<!-- downloaded from https://soundeffect-lab.info/ -->
+<audio id="tap"    src="sounds/decision1.mp3" preload="auto"></audio>
+<audio id="pause"  src="sounds/decision7.mp3" preload="auto"></audio>
+<audio id="buzzer" src="sounds/warning2.mp3"  preload="auto"></audio>
+
+<div id="container">
+<div id="player1" class="infotext">Player1</div>
+<div id="player2" class="infotext">Player2</div>
+
+<div id="scorecontainer" class="scorecontainer">
+<div id="score1" class="score">0</div>
+<input type="button" id="score1up" class="updownbtn" value="▲">
+<input type="button" id="score1dn" class="updownbtn" value="▼">
+
+<div id="score2" class="score">0</div>
+<input type="button" id="score2up" class="updownbtn" value="▲">
+<input type="button" id="score2dn" class="updownbtn" value="▼">
+
+<div id="gamemode" class="infotext">Match game to 5</div>
+<div id="crawford" class="infotext"></div>
+</div> <!-- div id="scorecontainer" -->
+
+<div id="timer1" class="timer teban_pause">10:00</div>
+<div id="timer2" class="timer teban_pause">10:00</div>
+<div id="delay1" class="delay">12</div>
+<div id="delay2" class="delay">12</div>
+<div id="pauseinfo" class="infotext">PAUSE</div>
+
+<input type="button" id="pausebtn" class="oparationbtn" value="PAUSE">
+<input type="button" id="settingbtn" class="oparationbtn" value="SETTING">
+
+</div> <!-- div class="container" -->
+
+<!-- 設定画面 -->
+<div id="settingwindow" class="popupwindow">
+<p class="popuptitle">Backgammon Clock and Score board App</p>
+<p>バックギャモンに特化したクロックとスコアボードのアプリです</p>
+<br>
+##### Settings #####
+<table>
+<tr><td>App mode:</td><td><input type="radio" name="appmode" value="full" checked>Full
+                          <input type="radio" name="appmode" value="score">only Score
+                          <input type="radio" name="appmode" value="clock">only Clock</td></tr>
+<tr><td>Player1 (left):</td><td><input type="text" id="playername1" value="Player1"></td></tr>
+<tr><td>Player2 (right):</td><td><input type="text" id="playername2" value="Player2"></td></tr>
+<tr><td>Game mode:</td><td><input type="radio" name="gamemode" value="match" checked>Match game
+                           <input type="radio" name="gamemode" value="unlimited">Unlimited game</td></tr>
+<tr><td>Match length:</td><td><input type="number" id="matchlength" min="0" max="99" value="5"></td></tr>
+<tr><td>Game time(mm:ss):</td><td><input type="number" id="allotedtimemin" min="0" max="99" value="10"> :
+                                  <input type="number" id="allotedtimesec" min="0" max="60" value="0"></td></tr>
+<tr><td>Delay(sec):</td><td><input type="number" id="delaytime" min="0" max="60" value="12"></td></tr>
+<tr><td>Sound:</td><td><input type="radio" name="sound" value="on" checked>On
+                       <input type="radio" name="sound" value="off">Off</td></tr>
+<tr><td>Vibration:</td><td><input type="radio" name="vibration" value="on" checked>On
+                           <input type="radio" name="vibration" value="off">Off</td></tr>
+</table>
+
+<input type="button" id="applybtn" class="oparationbtn" value="APPLY">
+<input type="button" id="cancelbtn" class="oparationbtn" value="CANCEL">
+<a href="help.html" target="bgclockhelp"><input type="button" class="oparationbtn" value="HELP"></a>
+</div>
+
+</body>
+</html>

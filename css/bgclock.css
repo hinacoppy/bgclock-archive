@@ -1,0 +1,210 @@
+/* document outline ----------------------------------------- */
+html{
+  height: 100%;
+}
+body{
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  height: 100%;
+  background-color: #efe;
+}
+@font-face {
+  /* https://www.keshikan.net/fonts.html */
+  font-family: 'DSEG7-Classic';
+  /* src: url(../fonts/DSEG7Classic-Regular.ttf); */
+  /* src: url(../fonts/DSEG7Classic-Bold.ttf); */
+  src: url(../fonts/DSEG7Classic-BoldItalic.woff);
+}
+/* Grid Layout settings ------------------------------------- */
+/* 以下すべて相対サイズにし、レスポンシブ対応可能にしておく */
+#container{
+  display: grid; /* Grid Layout でコンテンツを配置 */
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 10% 20% 60% 10%;
+  grid-template-areas:
+     'player1        player2'
+     'scorecontainer scorecontainer'
+     'timer1         timer2' /* delay1 delay2 pauseinfo もここに重ねる */
+     'pausebtn       settingbtn';
+  justify-items: stretch;
+  align-items: stretch; /* 上下方向に中央揃え */
+  background-color: #efe;
+}
+#player1{
+  grid-area: player1;
+}
+#player2{
+  grid-area: player2;
+}
+#scorecontainer{
+  grid-area: scorecontainer;
+}
+#score1{
+  grid-area: score1;
+}
+#score2{
+  grid-area: score2;
+}
+#score1up{
+  grid-area: score1up;
+}
+#score1dn{
+  grid-area: score1dn;
+}
+#score2up{
+  grid-area: score2up;
+}
+#score2dn{
+  grid-area: score2dn;
+}
+#gamemode{
+  grid-area: gamemode;
+}
+#crawford{
+  grid-area: crawford;
+}
+#timer1{
+  grid-area: timer1;
+  align-self: center;
+  justify-self: left;
+}
+#timer2{
+  grid-area: timer2;
+  align-self: center;
+  justify-self: right;
+}
+#delay1{
+  grid-area: timer1;
+}
+#delay2{
+  grid-area: timer2;
+}
+#pauseinfo{
+  grid-area: 3/1/4/3;
+  justify-self: center;
+  align-self: center;
+  background-color: #dfd;
+  color: #00f;
+  padding: 3vh 4vh;
+  z-index: 3;
+}
+#pausebtn{
+  grid-area: pausebtn;
+  justify-self: center;
+  width: 50%;
+}
+#settingbtn{
+  grid-area: settingbtn;
+  justify-self: center;
+  width: 50%;
+}
+/* object decorations ------------------------------------- */
+.infotext{
+  font-size: 3vw;
+  text-align: center;
+}
+.score{
+  font-size: 7vw;
+  background-color: #fdd;
+  justify-self: stretch;
+  text-align: center;
+}
+.score_scoreonly{
+  font-size: 20vw;
+  margin: 1vh 1vw;
+}
+.timer{
+  font-family: 'DSEG7-Classic', 'Arial Black', 'Meiryo UI';
+  margin: 2vh 1vw 2vh 1vw;
+  padding: 5vh 0;
+}
+.delay{
+  justify-self: center;
+  align-self: center;
+  font-size: 10vw;
+  background-color: rgba( 192, 192, 255, 0.8 );
+  padding: 1vh 1vw;
+  z-index: 2;
+}
+.updownbtn{
+  font-size: 1vw;
+  margin: 1em 0;
+  padding: 1em 2em;
+}
+.oparationbtn{
+  font-size: 1.6vw;
+  margin: 1em;
+  padding: 0.5em 2em;
+}
+.teban{
+  background-color: #ffa;
+  font-size: 18vw;
+  z-index: 1;
+}
+.noteban{
+  background-color: #999;
+  font-size: 10vw;
+}
+.teban_pause{
+  background-color: #999;
+  font-size: 14vw;
+}
+.lose{
+  color: #f00;
+}
+.scorecontainer{
+  display: grid; /* Grid Layout でコンテンツを配置 */
+  grid-template-columns: 10% 20% 40% 20% 10%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas:
+     'score1up score1 gamemode score2 score2up'
+     'score1dn score1 crawford score2 score2dn';
+  justify-items: center;
+  align-items: center;
+  background-color: #cef;
+}
+.scorecontainer_scoreonly{
+  display: grid;
+  grid-template-columns: 10% 40% 40% 10%;
+  grid-template-rows: 20% 40% 40%;
+  grid-template-areas:
+     'gamemode gamemode crawford crawford'
+     'score1up score1 score2 score2up'
+     'score1dn score1 score2 score2dn';
+  justify-items: center;
+  align-items: center;
+  background-color: #bfe;
+}
+/* popupwindow decorations ------------------------------------- */
+#settingwindow{
+  width: 50vw;
+  position: absolute;
+  display: none;
+  z-index: 5;
+  background-color: #cff;
+}
+#helpwindow{
+  width: 50vw;
+  position: absolute;
+  display: none;
+  z-index: 6;
+  background-color: #ccf;
+}
+.popupwindow{
+  border: 1px solid #00f;
+  padding: 1em 2em;
+  font-size: 1.3vw;
+}
+.popuptitle{
+  background-color: #383;
+  color: #fff;
+  padding: 1em;
+}
+/* 小技（タップした際の黒ずみ除去 / 長押しでメニューを開かない / テキスト選択不可 / スクロール不可）*/
+/* (参考) http://techblog.kayac.com/2016/12/12/090000 */
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
