@@ -175,7 +175,7 @@ function tap_timerarea(tappos) {
     pause_out();
   }
   turn = ( tappos==1 ? 2 : tappos==2 ? 1 : 0 ); //手番切替え
-      $('#player1').text("turn"+turn+"tappos"+tappos);
+//      $('#player1').text("turn"+turn+"tappos"+tappos);
   sound("tap"); vibration("tap");
 
   stopTimer(); //自分方のクロックを止める
