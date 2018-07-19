@@ -178,10 +178,10 @@ function tap_timerarea(tappos) {
   sound("tap"); vibration("tap");
 
   stopTimer(); //自分方のクロックを止める
-
+      $('#player1').text("turn"+turn+"tappos"+tappos);
   delay = delaytime; //保障時間を設定
   $('#delay'+turn).text(("00"+delay).substr(-2));
-      $('#player1').text("turn"+turn+"tappos"+tappos);
+
   //クロックの稼働/停止を切替え
   switch (turn) {
     case 1:
