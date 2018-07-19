@@ -201,6 +201,8 @@ function tap_timerarea(tappos) {
       $('#delay1').hide();
       break;
     default:
+      $('#player1').text("turn"+turn+"tappos"+tappos);
+      break;
   }
 
   startTimer(turn); //相手方のクロックをスタートさせる
