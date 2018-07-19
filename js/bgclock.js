@@ -181,7 +181,7 @@ function tap_timerarea(tappos) {
 
   delay = delaytime; //保障時間を設定
   $('#delay'+turn).text(("00"+delay).substr(-2));
-
+      $('#player1').text("turn"+turn+"tappos"+tappos);
   //クロックの稼働/停止を切替え
   switch (turn) {
     case 1:
@@ -201,7 +201,7 @@ function tap_timerarea(tappos) {
       $('#delay1').hide();
       break;
     default:
-      $('#player1').text("turn"+turn+"tappos"+tappos);
+
       break;
   }
 
