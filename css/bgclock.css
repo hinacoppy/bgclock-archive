@@ -176,35 +176,110 @@ body{
   align-items: center;
   background-color: #bfe;
 }
-/* popupwindow decorations ------------------------------------- */
+/* settingwindow decorations ------------------------------------- */
 #settingwindow{
-  width: 50vw;
+/*  width: 100%;*/
+/*  height: 100%;*/
   position: absolute;
   display: none;
   z-index: 5;
-  background-color: #cff;
+  background-color: #dff;
 }
-#helpwindow{
-  width: 50vw;
-  position: absolute;
-  display: none;
-  z-index: 6;
-  background-color: #ccf;
+#settingwindow input,select{
+  font-size: 100%;
 }
 .popupwindow{
-  border: 1px solid #00f;
+  border: 2px solid #00f;
   padding: 1em 2em;
-  font-size: 1.3vw;
+  font-size: 1.8vw;
 }
 .popuptitle{
-  background-color: #383;
+  font-size: 120%;
+  background-color: #48f;
   color: #fff;
   padding: 1em;
+}
+/* toggle switch ----------------------------------------- */
+/* (参考) https://www.w3schools.com/howto/howto_css_switch.asp */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 2em;
+}
+.switch input {
+  display: none;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.6em;
+  width: 1.6em;
+  left: 0.2em;
+  bottom: 0.2em;
+  background-color: white;
+  transition: .3s;
+}
+input:checked + .slider {
+  background-color: #29f;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #29f;
+}
+input:checked + .slider:before {
+  transform: translateX(2.0em);
+  -webkit-transform: translateX(2.0em);
+  -ms-transform: translateX(2.0em);
+}
+/* Rounded sliders */
+.slider.round {
+  border-radius: 1.6em;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+/* Segmented Control ----------------------------------------- */
+/* (参考) https://ginpen.com/2012/12/11/segmented-control/ */
+.segmented {
+    display: inline-block;
+}
+.segmented .label {
+    background-color: #eee;
+    border: 1px #ccc;
+    border-style: solid none solid solid;
+    color: #777;
+    cursor: pointer;
+    float: left;
+    padding: 0.5em 1em;
+    text-align: center;
+    width: 12vw;
+}
+.segmented :first-child .label {
+}
+.segmented :last-child .label {
+    border-right-style: solid;
+}
+.segmented input {
+    display: none;
+}
+.segmented input:checked + .label {
+    background-color: #29f; /* #00f */
+    color: #fff;
 }
 /* 小技（タップした際の黒ずみ除去 / 長押しでメニューを開かない / テキスト選択不可 / スクロール不可）*/
 /* (参考) http://techblog.kayac.com/2016/12/12/090000 */
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-touch-callout: none;
+/*  -webkit-touch-callout: none;*/
   -webkit-user-select: none;
 }

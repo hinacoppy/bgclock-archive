@@ -24,18 +24,18 @@ $(function() {
   //設定画面の[APPLY] ボタンがクリックされたとき
   $('#applybtn').on('click', function(e) {
     set_initial_vars();
-    $('#settingwindow').fadeOut(100);
+    $('#settingwindow').slideUp("normal");
   });
 
   //設定画面の[CANCEL] ボタンがクリックされたとき
   $('#cancelbtn').on('click', function(e) {
-    $('#settingwindow').fadeOut(100); //設定画面を消す
+    $('#settingwindow').slideUp("normal"); //設定画面を消す
   });
 
   //メイン画面の[SETTING] ボタンがクリックされたとき
   $('#settingbtn').on('click', function(e) {
     topleft = winposition( $('#settingwindow') );
-    $('#settingwindow').css(topleft).fadeIn(100); //画面表示
+    $('#settingwindow').css(topleft).slideDown("normal"); //画面表示
   });
 
   //メイン画面の[PAUSE] ボタンがクリックされたとき
@@ -99,19 +99,17 @@ function set_initial_vars() {
   score = [0, 0, 0];
   $('#score1').text(score[1]);
   $('#score2').text(score[2]);
-  gamemode = $('[name=gamemode]:checked').val();
-  if (gamemode == "match") {
-    matchlength = $('#matchlength').val();
-    $('#gamemode').text("Match game to "+ matchlength);
-  } else { //unlimited
-    matchlength = 9999;
+  matchlength = $('#matchlength').val();
+  if (matchlength == 0) { //unlimited
     $('#gamemode').text("Unlimited game");
+  } else {
+    $('#gamemode').text("Match game to "+ matchlength);
   }
   crawford = 0;
   $('#crawford').text("");
   delaytime = Number($('#delaytime').val());
   $('#delay1,#delay2').text(("00"+delaytime).substr(-2));
-  allotedtime = Number($('#allotedtimemin').val()) * 60 + Number($('#allotedtimesec').val());
+  allotedtime = Number($('#allotedtimemin').val()) * 60;
   timer = [0, allotedtime, allotedtime];
   disp_timer(1, timer[1]);
   disp_timer(2, timer[2]);
@@ -129,7 +127,7 @@ function set_initial_vars() {
     $('#scorecontainer').addClass("scorecontainer_scoreonly").removeClass("scorecontainer");
     $('#score1,#score2').addClass("score_scoreonly");
     $('#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn').hide();
-    $('#player1,#player2').hide();
+    $('#player1,#player2').show();
     break;
   default: //full
     $('#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn').show();
@@ -140,9 +138,8 @@ function set_initial_vars() {
     $('#player1,#player2').show();
     break;
   }
-  //soundflg = $('[name=sound]:checked').val() == "on" ? true : false;
-  soundflg = !!($('[name=sound]:checked').val() == "on"); //上記3項演算子と同じ結果を返す記述方法
-  vibrationflg = !!($('[name=vibration]:checked').val() == "on");
+  soundflg = $('[name=sound]').prop("checked");
+  vibrationflg = $('[name=vibration]').prop("checked");
 }
 
 //PLAY -> PAUSE
