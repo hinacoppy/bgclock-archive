@@ -55,7 +55,7 @@ $(function() {
 
   //クロックの場所がクリック(タップ)されたとき
   $('#timer1,#delay1,#timer2,#delay2').on('touchstart mousedown', function(e) {
-    event.preventDefault(); // touchstart以降のイベントを発生させない
+    e.preventDefault(); // touchstart以降のイベントを発生させない
     idname = $(this).attr("id");
     tappos = Number(idname.substr(5,1));
     tap_timerarea(tappos);
@@ -175,7 +175,6 @@ function tap_timerarea(tappos) {
     pause_out();
   }
   turn = ( tappos==1 ? 2 : tappos==2 ? 1 : 0 ); //手番切替え
-//      $('#player1').text("turn"+turn+"tappos"+tappos);
   sound("tap"); vibration("tap");
 
   stopTimer(); //自分方のクロックを止める
@@ -183,30 +182,30 @@ function tap_timerarea(tappos) {
   delay = delaytime; //保障時間を設定
   $('#delay'+turn).text(("00"+delay).substr(-2));
 
+  startTimer(turn); //相手方のクロックをスタートさせる
+
   //クロックの稼働/停止を切替え
   switch (turn) {
     case 1:
-      //左側のクロックを稼働
-      $('#timer1').addClass("teban").removeClass("noteban teban_pause");
-      $('#delay1').show();
       //右側を停止
-      $('#timer2').addClass("noteban").removeClass("teban teban_pause");
       $('#delay2').hide();
+      $('#timer2').removeClass("teban teban_pause").addClass("noteban");
+      //左側のクロックを稼働
+      $('#delay1').show();
+      $('#timer1').removeClass("noteban teban_pause").addClass("teban");
       break;
     case 2:
-      //右側のクロックを稼働
-      $('#timer2').addClass("teban").removeClass("noteban teban_pause");
-      $('#delay2').show();
       //左側を停止
-      $('#timer1').addClass("noteban").removeClass("teban teban_pause");
       $('#delay1').hide();
+      $('#timer1').removeClass("teban teban_pause").addClass("noteban");
+      //右側のクロックを稼働
+      $('#delay2').show();
+      $('#timer2').removeClass("noteban teban_pause").addClass("teban");
       break;
     default:
-
+      alert("wrong! turn="+turn+" tappos="+tappos);
       break;
   }
-
-  startTimer(turn); //相手方のクロックをスタートさせる
 }
 
 function startTimer(turn) {
