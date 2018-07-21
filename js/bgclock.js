@@ -22,29 +22,29 @@
 $(function() {
 
   //設定画面の[APPLY] ボタンがクリックされたとき
-  $('#applybtn').on('click', function(e) {
+  $("#applybtn").on('click', function(e) {
     set_initial_vars();
-    $('#settingwindow').slideUp("normal");
+    $("#settingwindow").slideUp("normal");
   });
 
   //設定画面の[CANCEL] ボタンがクリックされたとき
-  $('#cancelbtn').on('click', function(e) {
-    $('#settingwindow').slideUp("normal"); //設定画面を消す
+  $("#cancelbtn").on('click', function(e) {
+    $("#settingwindow").slideUp("normal"); //設定画面を消す
   });
 
   //メイン画面の[SETTING] ボタンがクリックされたとき
-  $('#settingbtn').on('click', function(e) {
-    topleft = winposition( $('#settingwindow') );
-    $('#settingwindow').css(topleft).slideDown("normal"); //画面表示
+  $("#settingbtn").on('click', function(e) {
+    topleft = winposition( $("#settingwindow") );
+    $("#settingwindow").css(topleft).slideDown("normal"); //画面表示
   });
 
   //メイン画面の[PAUSE] ボタンがクリックされたとき
-  $('#pausebtn').on('click', function(e) {
+  $("#pausebtn").on('click', function(e) {
     if (turn == 0) { return; } //どちらの手番でもない場合は何もしない
     if (pauseflg) { //PAUSE -> PLAY
       pause_out();
-      $('#timer1,#timer2').removeClass("teban_pause").addClass("noteban");
-      $('#timer'+turn).addClass("teban").removeClass("noteban");
+      $("#timer1,#timer2").removeClass("teban_pause").addClass("noteban");
+      $("#timer"+turn).addClass("teban").removeClass("noteban");
       startTimer(turn); //現在の持ち時間からクロック再開
     } else { //PLAY -> PAUSE
       pause_in();
@@ -54,7 +54,7 @@ $(function() {
   });
 
   //クロックの場所がクリック(タップ)されたとき
-  $('#timer1,#delay1,#timer2,#delay2').on('touchstart mousedown', function(e) {
+  $("#timer1,#delay1,#timer2,#delay2").on('touchstart mousedown', function(e) {
     e.preventDefault(); // touchstart以降のイベントを発生させない
     idname = $(this).attr("id");
     tappos = Number(idname.substr(5,1));
@@ -62,7 +62,7 @@ $(function() {
   });
 
   //スコア操作のボタンがクリックされたとき
-  $('#score1up,#score1dn,#score2up,#score2dn').on('click', function(e) {
+  $("#score1up,#score1dn,#score2up,#score2dn").on('click', function(e) {
     idname = $(this).attr("id");
     modify_score(idname);
   });
@@ -88,73 +88,75 @@ function modify_score(idname) {
   }
 
   //画面に反映
-  $('#score'+player).text(score[player]);
-  $('#crawford').text(cfstr);
+  $("#score"+player).text(score[player]);
+  $("#crawford").text(cfstr);
 }
 
 //ポップアップ画面で設定した内容を反映
 function set_initial_vars() {
-  $('#player1').text( $('#playername1').val() );
-  $('#player2').text( $('#playername2').val() );
+  $("#player1").text( $("#playername1").val() );
+  $("#player2").text( $("#playername2").val() );
   score = [0, 0, 0];
-  $('#score1').text(score[1]);
-  $('#score2').text(score[2]);
-  matchlength = $('#matchlength').val();
+  $("#score1").text(score[1]);
+  $("#score2").text(score[2]);
+  matchlength = $("#matchlength").val();
   if (matchlength == 0) { //unlimited
-    $('#gamemode').text("Unlimited game");
+    $("#gamemode").text("Unlimited game");
   } else {
-    $('#gamemode').text("Match game to "+ matchlength);
+    $("#gamemode").text("Match game to "+ matchlength);
   }
   crawford = 0;
-  $('#crawford').text("");
-  delaytime = Number($('#delaytime').val());
-  $('#delay1,#delay2').text(("00"+delaytime).substr(-2));
-  allotedtime = Number($('#allotedtimemin').val()) * 60;
+  $("#crawford").text("");
+  delaytime = Number($("#delaytime").val());
+  $("#delay1,#delay2").text(("00"+delaytime).substr(-2));
+  allotedtime = Number($("#allotedtimemin").val()) * 60;
   timer = [0, allotedtime, allotedtime];
   disp_timer(1, timer[1]);
   disp_timer(2, timer[2]);
   turn = 0; //手番をリセット
-  appmode = $('[name=appmode]:checked').val();
+  appmode = $("[name=appmode]:checked").val();
   switch (appmode) {
   case "clock":
-    $('#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn').show();
-    $('#timer1,#timer2').removeClass("lose");
-    $('#player1,#player2').show();
-    $('#scorecontainer').hide();
+    $("#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn").show();
+    $("#timer1,#timer2").removeClass("lose");
+    $("#player1,#player2").show();
+    $("#scorecontainer").hide();
     break;
   case "score":
-    $('#scorecontainer').show();
-    $('#scorecontainer').addClass("scorecontainer_scoreonly").removeClass("scorecontainer");
-    $('#score1,#score2').addClass("score_scoreonly");
-    $('#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn').hide();
-    $('#player1,#player2').show();
+    $("#scorecontainer").show();
+    $("#scorecontainer").addClass("scorecontainer_scoreonly").removeClass("scorecontainer");
+    $("#score1,#score2").addClass("score_scoreonly");
+    $("#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn").hide();
+    $("#player1,#player2").show();
     break;
   default: //full
-    $('#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn').show();
-    $('#timer1,#timer2').removeClass("lose");
-    $('#scorecontainer').removeClass("scorecontainer_scoreonly").addClass("scorecontainer");
-    $('#score1,#score2').removeClass("score_scoreonly");
-    $('#scorecontainer').show();
-    $('#player1,#player2').show();
+    $("#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn").show();
+    $("#timer1,#timer2").removeClass("lose");
+    $("#scorecontainer").removeClass("scorecontainer_scoreonly").addClass("scorecontainer");
+    $("#score1,#score2").removeClass("score_scoreonly");
+    $("#scorecontainer").show();
+    $("#player1,#player2").show();
     break;
   }
-  soundflg = $('[name=sound]').prop("checked");
-  vibrationflg = $('[name=vibration]').prop("checked");
+  soundflg = $("[name=sound]").prop("checked");
+  vibrationflg = $("[name=vibration]").prop("checked");
 }
 
 //PLAY -> PAUSE
 function pause_in() {
   pauseflg = true;
-  $('#pauseinfo').show();
-  $('#settingbtn,#score1up,#score1dn,#score2up,#score2dn').prop('disabled', false); //ボタンクリックを有効化
-  $('#timer1,#timer2').removeClass("teban noteban").addClass("teban_pause"); //クロックを無手番に
+  $("#pauseinfo").show();
+  $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', false); //ボタンクリックを有効化
+  $("#timer1,#timer2").removeClass("teban noteban").addClass("teban_pause"); //クロックを無手番に
+$("#crawford").text("P");
 }
 
 //PAUSE -> PLAY
 function pause_out() {
   pauseflg = false;
-  $('#pauseinfo').hide();
-  $('#settingbtn,#score1up,#score1dn,#score2up,#score2dn').prop('disabled', true); //ボタンクリックを無効化
+  $("#pauseinfo").hide();
+  $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', true); //ボタンクリックを無効化
+$("#crawford").append("Q");
 }
 
 //クロックを表示
@@ -162,7 +164,8 @@ function disp_timer(turn, time) {
   min = Math.floor(time / 60);
   sec = Math.floor(time % 60);
   timestr = ("00" + min).substr(-2) + ":" + ("00" + sec).substr(-2);
-  $('#timer'+turn).text(timestr);
+  $("#timer"+turn).text(timestr);
+$("#crawford").append("D");
 }
 
 //クロック表示場所をクリック(タップ)したときの処理
@@ -171,36 +174,48 @@ function tap_timerarea(tappos) {
   //＝相手の手番、またはポーズのときは以下の処理を実行
   if (turn != tappos && pauseflg == false) { return; }
 
+$("#crawford").append("a");
+
   if (pauseflg) { //ポーズ状態のときはポーズを解除
     pause_out();
   }
   turn = ( tappos==1 ? 2 : tappos==2 ? 1 : 0 ); //手番切替え
   sound("tap"); vibration("tap");
 
+$("#crawford").append("b");
+
   stopTimer(); //自分方のクロックを止める
 
+$("#crawford").append("d");
+
   delay = delaytime; //保障時間を設定
-  $('#delay'+turn).text(("00"+delay).substr(-2));
+  $("#delay"+turn).text(("00"+delay).substr(-2));
+
+$("#crawford").append("e");
 
   startTimer(turn); //相手方のクロックをスタートさせる
 
   //クロックの稼働/停止を切替え
   switch (turn) {
     case 1:
+$("#crawford").append("f");
+
       //右側を停止
-      $('#delay2').hide();
-      $('#timer2').removeClass("teban teban_pause").addClass("noteban");
+      $("#delay2").hide();
+      $("#timer2").removeClass("teban teban_pause").addClass("noteban");
       //左側のクロックを稼働
-      $('#delay1').show();
-      $('#timer1').removeClass("noteban teban_pause").addClass("teban");
+      $("#delay1").show();
+      $("#timer1").removeClass("noteban teban_pause").addClass("teban");
       break;
     case 2:
+$("#crawford").append("g");
+
       //左側を停止
-      $('#delay1').hide();
-      $('#timer1').removeClass("teban teban_pause").addClass("noteban");
+      $("#delay1").hide();
+      $("#timer1").removeClass("teban teban_pause").addClass("noteban");
       //右側のクロックを稼働
-      $('#delay2').show();
-      $('#timer2').removeClass("noteban teban_pause").addClass("teban");
+      $("#delay2").show();
+      $("#timer2").removeClass("noteban teban_pause").addClass("teban");
       break;
     default:
       alert("wrong! turn="+turn+" tappos="+tappos);
@@ -210,30 +225,39 @@ function tap_timerarea(tappos) {
 
 function startTimer(turn) {
   clock = setInterval(function(){countdown(turn);}, clockspd);
+
+$("#crawford").append("T");
+
 }
 
 function stopTimer() {
   clearInterval(clock);
+$("#crawford").append("U");
 }
 
 //クロックをカウントダウン
 function countdown(turn) {
+$("#crawford").append("K");
   if (delay > 0) {
     //保障時間内
     delay -= clockspd / 1000;
-    $('#delay'+turn).text(("00"+Math.floor(delay)).substr(-2));
+    $("#delay"+turn).text(("00"+Math.floor(delay)).substr(-2));
+$("#crawford").append("N");
+
   } else {
     //保障時間切れ後
-    $('#delay'+turn).hide();
+    $("#delay"+turn).hide();
     timer[turn] -= clockspd / 1000;
     if (timer[turn] < 0) { timeup_lose(turn); return; } //切れ負け処理
     disp_timer(turn, timer[turn]);
+$("#crawford").append("M");
+
   }
 }
 
 //切れ負け処理
 function timeup_lose(turn) {
-  $('#timer'+turn).text("LOSE").addClass("lose");
+  $("#timer"+turn).text("LOSE").addClass("lose");
   stopTimer();
   pause_in(); //ポーズ状態に遷移
   sound("buzzer"); vibration("buzzer");
