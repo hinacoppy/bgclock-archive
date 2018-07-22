@@ -16,7 +16,9 @@
                        //1000の約数でないと時計の進みがいびつになり、使いにくい
                        //200msecだと残時間管理が精密になるがブラウザのCPU負荷が上がる
   var soundflg = true;
-  var vibrationflg = true;
+  var iosflg = is_iOS();
+  var vibrationflg = !iosflg; //if useragent is iOS then false, else true;
+  set_vibrationswitch(vibrationflg, iosflg);
 
 //イベントハンドラの定義
 $(function() {
@@ -291,4 +293,16 @@ function winposition(winobj) {
   wy = $(document).scrollTop() + ($(window).height() - winobj.outerHeight()) / 2;
   if (wy < 0) { wy = 0; }
   return {top:wy, left:wx};
+}
+
+//UserAgentを確認し、iOSか否かを判断する
+function is_iOS() {
+  ua = window.navigator.userAgent.toLowerCase();
+  return (ua.indexOf('iphone') !== -1 || ua.indexOf('ipod') !== -1 || ua.indexOf('ipad') !== -1);
+}
+
+//設定画面のvibrationスイッチを設定(iOSの場合は操作できなくする)
+function set_vibrationswitch(vibrationflg, iosflg) {
+  $("[name=vibration]").prop("checked", vibrationflg);
+  $("[name=vibration]").prop("disabled", iosflg); //ボタンクリックを無効化
 }
