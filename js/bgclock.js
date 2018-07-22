@@ -305,4 +305,7 @@ function is_iOS() {
 function set_vibrationswitch(vibrationflg, iosflg) {
   $("[name=vibration]").prop("checked", vibrationflg);
   $("[name=vibration]").prop("disabled", iosflg); //ボタンクリックを無効化
+$("#gamemode").append("VI");
+$("#gamemode").append(vibrationflg);
+$("#gamemode").append(iosflg);
 }
