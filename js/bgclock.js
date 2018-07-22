@@ -150,7 +150,6 @@ function pause_in() {
   $("#pauseinfo").show();
   $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', false); //ボタンクリックを有効化
   $("#timer1,#timer2").removeClass("teban noteban").addClass("teban_pause"); //クロックを無手番に
-$("#crawford").append("P");
 }
 
 //PAUSE -> PLAY
@@ -158,7 +157,6 @@ function pause_out() {
   pauseflg = false;
   $("#pauseinfo").hide();
   $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', true); //ボタンクリックを無効化
-$("#crawford").text("Q");
 }
 
 //クロックを表示
@@ -167,7 +165,6 @@ function disp_timer(turn, time) {
   sec = Math.floor(time % 60);
   timestr = ("00" + min).substr(-2) + ":" + ("00" + sec).substr(-2);
   $("#timer"+turn).text(timestr);
-$("#crawford").append("D");
 }
 
 //クロック表示場所をクリック(タップ)したときの処理
@@ -176,32 +173,22 @@ function tap_timerarea(tappos) {
   //＝相手の手番、またはポーズのときは以下の処理を実行
   if (turn != tappos && pauseflg == false) { return; }
 
-$("#crawford").append("c");
-
   if (pauseflg) { //ポーズ状態のときはポーズを解除
     pause_out();
   }
   turn = ( tappos==1 ? 2 : tappos==2 ? 1 : 0 ); //手番切替え
   sound("tap"); vibration("tap");
 
-//$("#crawford").append("b");
-
   stopTimer(); //自分方のクロックを止める
-
-$("#crawford").append("d");
 
   delay = delaytime; //保障時間を設定
   $("#delay"+turn).text(("00"+delay).substr(-2));
-
-//$("#crawford").append("e");
 
   startTimer(turn); //相手方のクロックをスタートさせる
 
   //クロックの稼働/停止を切替え
   switch (turn) {
     case 1:
-$("#crawford").append("f");
-
       //右側を停止
       $("#delay2").hide();
       $("#timer2").removeClass("teban teban_pause").addClass("noteban");
@@ -210,8 +197,6 @@ $("#crawford").append("f");
       $("#timer1").removeClass("noteban teban_pause").addClass("teban");
       break;
     case 2:
-$("#crawford").append("g");
-
       //左側を停止
       $("#delay1").hide();
       $("#timer1").removeClass("teban teban_pause").addClass("noteban");
@@ -227,33 +212,24 @@ $("#crawford").append("g");
 
 function startTimer(turn) {
   clock = setInterval(function(){countdown(turn);}, clockspd);
-
-$("#crawford").append("T");
-
 }
 
 function stopTimer() {
   clearInterval(clock);
-$("#crawford").append("U");
 }
 
 //クロックをカウントダウン
 function countdown(turn) {
-//$("#crawford").append("K");
   if (delay > 0) {
     //保障時間内
     delay -= clockspd / 1000;
     $("#delay"+turn).text(("00"+Math.floor(delay)).substr(-2));
-$("#crawford").append("N");
-
   } else {
     //保障時間切れ後
     $("#delay"+turn).hide();
     timer[turn] -= clockspd / 1000;
     if (timer[turn] < 0) { timeup_lose(turn); return; } //切れ負け処理
     disp_timer(turn, timer[turn]);
-$("#crawford").append("M");
-
   }
 }
 
@@ -305,7 +281,4 @@ function is_iOS() {
 function set_vibrationswitch(vibrationflg, iosflg) {
   $("[name=vibration]").prop("checked", vibrationflg);
   $("[name=vibration]").prop("disabled", iosflg); //ボタンクリックを無効化
-$("#gamemode").append("VI");
-$("#gamemode").append(vibrationflg);
-$("#gamemode").append(iosflg);
 }
