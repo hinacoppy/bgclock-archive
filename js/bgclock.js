@@ -148,7 +148,7 @@ function pause_in() {
   $("#pauseinfo").show();
   $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', false); //ボタンクリックを有効化
   $("#timer1,#timer2").removeClass("teban noteban").addClass("teban_pause"); //クロックを無手番に
-$("#crawford").text("P");
+$("#crawford").append("P");
 }
 
 //PAUSE -> PLAY
@@ -156,7 +156,7 @@ function pause_out() {
   pauseflg = false;
   $("#pauseinfo").hide();
   $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', true); //ボタンクリックを無効化
-$("#crawford").append("Q");
+$("#crawford").text("Q");
 }
 
 //クロックを表示
@@ -174,7 +174,7 @@ function tap_timerarea(tappos) {
   //＝相手の手番、またはポーズのときは以下の処理を実行
   if (turn != tappos && pauseflg == false) { return; }
 
-$("#crawford").append("a");
+$("#crawford").append("c");
 
   if (pauseflg) { //ポーズ状態のときはポーズを解除
     pause_out();
@@ -182,7 +182,7 @@ $("#crawford").append("a");
   turn = ( tappos==1 ? 2 : tappos==2 ? 1 : 0 ); //手番切替え
   sound("tap"); vibration("tap");
 
-$("#crawford").append("b");
+//$("#crawford").append("b");
 
   stopTimer(); //自分方のクロックを止める
 
@@ -191,7 +191,7 @@ $("#crawford").append("d");
   delay = delaytime; //保障時間を設定
   $("#delay"+turn).text(("00"+delay).substr(-2));
 
-$("#crawford").append("e");
+//$("#crawford").append("e");
 
   startTimer(turn); //相手方のクロックをスタートさせる
 
@@ -237,7 +237,7 @@ $("#crawford").append("U");
 
 //クロックをカウントダウン
 function countdown(turn) {
-$("#crawford").append("K");
+//$("#crawford").append("K");
   if (delay > 0) {
     //保障時間内
     delay -= clockspd / 1000;
