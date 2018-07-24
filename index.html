@@ -8,6 +8,8 @@
   <meta name="description" content="Clock and Score board App for Backgammon player">
   <meta name="author" content="(C)hinacoppy 2018">
   <link rel="stylesheet" href="css/bgclock.css">
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <title>Backgammon Clock and Score board App</title>
 </head>
 <body>
@@ -50,7 +52,7 @@
 <p class="popuptitle">### Backgammon Clock and Score board App Settings ###</p>
 <table>
 <tr><td>App mode:</td><td>
-  <span class="segmented">
+  <span id="appmode" class="segmented">
     <label><input type="radio" name="appmode" value="full" checked><span class="label">Full</span></label>
     <label><input type="radio" name="appmode" value="score"><span class="label">only Score</span></label>
     <label><input type="radio" name="appmode" value="clock"><span class="label">only Clock</span></label>
@@ -136,13 +138,17 @@
 <option value="20">20</option>
 </select>
 </td></tr>
-<tr><td>Sound:</td><td><label class="switch"><input type="checkbox" name="sound" checked><span class="slider round"></span></label></td></tr>
-<tr><td>Vibration:</td><td><label class="switch"><input type="checkbox" name="vibration" checked><span class="slider round"></span></label></td></tr>
+<tr><td>Sound:</td><td>
+<label class="switch"><input type="checkbox" name="sound" checked><span class="slider round"></span></label>
+</td></tr>
+<tr id="tr_vibration"><td>Vibration:</td><td>
+<label class="switch"><input type="checkbox" name="vibration"><span class="slider round"></span></label>
+</td></tr>
 </table>
 
 <input type="button" id="applybtn" class="oparationbtn" value="APPLY">
 <input type="button" id="cancelbtn" class="oparationbtn" value="CANCEL">
-<a href="help.html" target="bgclockhelp"><input type="button" class="oparationbtn" value="HELP"></a>
+<a href="help.html" target="bgclockhelp"><input type="button" id="helpbtn" class="oparationbtn" value="HELP"></a>
 </div>
 
 <!--  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->

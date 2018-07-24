@@ -16,9 +16,9 @@
                        //1000の約数でないと時計の進みがいびつになり、使いにくい
                        //200msecだと残時間管理が精密になるがブラウザのCPU負荷が上がる
   var soundflg = true;
+  var vibrationflg = false; //バイブレーションの初期設定は無効
   var iosflg = is_iOS();
-  var vibrationflg = !iosflg; //if useragent is iOS then false, else true;
-  set_vibrationswitch(vibrationflg, iosflg);
+  if (iosflg) { $("#tr_vibration").css("display", "none"); } //iOSのときはバイブレーションの設定項目を表示しない
 
 //イベントハンドラの定義
 $(function() {
@@ -275,10 +275,4 @@ function winposition(winobj) {
 function is_iOS() {
   ua = window.navigator.userAgent.toLowerCase();
   return (ua.indexOf('iphone') !== -1 || ua.indexOf('ipod') !== -1 || ua.indexOf('ipad') !== -1);
-}
-
-//設定画面のvibrationスイッチを設定(iOSの場合は操作できなくする)
-function set_vibrationswitch(vibrationflg, iosflg) {
-  $("[name=vibration]").prop("checked", vibrationflg);
-  $("[name=vibration]").prop("disabled", iosflg); //ボタンクリックを無効化
 }
