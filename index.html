@@ -27,31 +27,31 @@
 <audio id="buzzer" src="sounds/warning2.mp3"  preload="auto"></audio>
 
 <div id="container">
-<div id="player1" class="infotext">Player1</div>
-<div id="player2" class="infotext">Player2</div>
+<div id="player1" class="infotext">Player_L</div>
+<div id="player2" class="infotext">Player_R</div>
 
-<div id="scorecontainer" class="scorecontainer">
-<div id="score1" class="score">0</div>
-<input type="button" id="score1up" class="updownbtn" value="▲">
-<input type="button" id="score1dn" class="updownbtn" value="▼">
+ <div id="gamemode" class="infotext">Match game to 5</div>
 
-<div id="score2" class="score">0</div>
-<input type="button" id="score2up" class="updownbtn" value="▲">
-<input type="button" id="score2dn" class="updownbtn" value="▼">
+ <div id="score1container" class="scorecontainer">
+  <div id="score1dn" class="updownbtn btnenable">&lt;</div>
+  <div id="score1" class="score">0</div>
+  <div id="score1up" class="updownbtn btnenable">&gt;</div>
+ </div>
 
-<div id="gamemode" class="infotext">Match game to 5</div>
-<div id="crawford" class="infotext"></div>
-</div> <!-- div id="scorecontainer" -->
+ <div id="score2container" class="scorecontainer">
+  <div id="score2dn" class="updownbtn btnenable">&lt;</div>
+  <div id="score2" class="score">0</div>
+  <div id="score2up" class="updownbtn btnenable">&gt;</div>
+ </div>
 
-<div id="timer1" class="timer teban_pause">10:00</div>
-<div id="timer2" class="timer teban_pause">10:00</div>
-<div id="delay1" class="delay">12</div>
-<div id="delay2" class="delay">12</div>
-<div id="pauseinfo" class="infotext">PAUSE</div>
+ <div id="timer1" class="timer teban_pause">10:00</div>
+ <div id="timer2" class="timer teban_pause">10:00</div>
 
-<input type="button" id="pausebtn" class="oparationbtn" value="PAUSE">
-<input type="button" id="settingbtn" class="oparationbtn" value="SETTING">
+ <div id="delay" class="delay">12</div>
+ <div id="pauseinfo" class="pauseinfo">PAUSE</div>
 
+ <div id="pausebtn" class="oparationbtn btnenable">PAUSE</div>
+ <div id="settingbtn" class="oparationbtn btnenable">SETTING</div>
 </div> <!-- div class="container" -->
 
 <!-- 設定画面 -->
@@ -65,8 +65,8 @@
     <label><input type="radio" name="appmode" value="clock"><span class="label">only Clock</span></label>
   </span>
 </td></tr>
-<tr><td>Player1 (left):</td><td><input type="text" id="playername1" value="Player1"></td></tr>
-<tr><td>Player2 (right):</td><td><input type="text" id="playername2" value="Player2"></td></tr>
+<tr><td>Player1 (left):</td><td><input type="text" id="playername1" value="Player_L"></td></tr>
+<tr><td>Player2 (right):</td><td><input type="text" id="playername2" value="Player_R"></td></tr>
 <tr><td>Match length:</td><td>
 <select id="matchlength" name="matchlength">
 <option value="0">0</option>
@@ -153,9 +153,9 @@
 </td></tr>
 </table>
 
-<input type="button" id="applybtn" class="oparationbtn" value="APPLY">
-<input type="button" id="cancelbtn" class="oparationbtn" value="CANCEL">
-<a href="help.html" target="bgclockhelp"><input type="button" id="helpbtn" class="oparationbtn" value="HELP"></a>
+<input type="button" id="applybtn" class="oparationbtn btnenable" value="APPLY">
+<input type="button" id="cancelbtn" class="oparationbtn btnenable" value="CANCEL">
+<a href="help.html" target="bgclockhelp"><input type="button" id="helpbtn" class="oparationbtn btnenable" value="HELP"></a>
 </div>
 
 <!--  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->

@@ -15,6 +15,7 @@
   var clockspd = 1000; //msec どこまでの精度で時計を計測するか
                        //1000の約数でないと時計の進みがいびつになり、使いにくい
                        //200msecだと残時間管理が精密になるがブラウザのCPU負荷が上がる
+  var gamemodestr = "Match game to "+ matchlength;
   var soundflg = true;
   var vibrationflg = false; //バイブレーションの初期設定は無効
   var iosflg = is_iOS();
@@ -45,8 +46,9 @@ $(function() {
     if (turn == 0) { return; } //どちらの手番でもない場合は何もしない
     if (pauseflg) { //PAUSE -> PLAY
       pause_out();
-      $("#timer1,#timer2").removeClass("teban_pause").addClass("noteban");
-      $("#timer"+turn).addClass("teban").removeClass("noteban");
+      nonturn = turn==1 ? 2 : 1; //手番じゃないほう
+      $("#timer"+turn).removeClass("noteban teban_pause").addClass("teban");
+      $("#timer"+nonturn).removeClass("teban teban_pause").addClass("noteban");
       startTimer(turn); //現在の持ち時間からクロック再開
     } else { //PLAY -> PAUSE
       pause_in();
@@ -56,15 +58,15 @@ $(function() {
   });
 
   //クロックの場所がクリック(タップ)されたとき
-  $("#timer1,#delay1,#timer2,#delay2").on('touchstart mousedown', function(e) {
+  $("#timer1,#timer2").on('touchstart mousedown', function(e) {
     e.preventDefault(); // touchstart以降のイベントを発生させない
     idname = $(this).attr("id");
-    tappos = Number(idname.substr(5,1));
-    tap_timerarea(tappos);
+    tap_timerarea(idname);
   });
 
   //スコア操作のボタンがクリックされたとき
   $("#score1up,#score1dn,#score2up,#score2dn").on('click', function(e) {
+    if ($(this).hasClass("btndisable")) { return; } //disableのときは何もしない
     idname = $(this).attr("id");
     modify_score(idname);
   });
@@ -91,7 +93,7 @@ function modify_score(idname) {
 
   //画面に反映
   $("#score"+player).text(score[player]);
-  $("#crawford").text(cfstr);
+  $("#gamemode").html(gamemodestr + "<br>" + cfstr);
 }
 
 //ポップアップ画面で設定した内容を反映
@@ -102,15 +104,15 @@ function set_initial_vars() {
   $("#score1").text(score[1]);
   $("#score2").text(score[2]);
   matchlength = $("#matchlength").val();
-  if (matchlength == 0) { //unlimited
-    $("#gamemode").text("Unlimited game");
-  } else {
-    $("#gamemode").text("Match game to "+ matchlength);
-  }
   crawford = 0;
-  $("#crawford").text("");
+  if (matchlength == 0) { //unlimited
+    gamemodestr = "Unlimited game";
+  } else {
+    gamemodestr = "Match game to "+ matchlength;
+  }
+  $("#gamemode").text(gamemodestr);
   delaytime = Number($("#delaytime").val());
-  $("#delay1,#delay2").text(("00"+delaytime).substr(-2));
+  $("#delay").text(("00"+delaytime).substr(-2));
   allotedtime = Number($("#allotedtimemin").val()) * 60;
   timer = [0, allotedtime, allotedtime];
   disp_timer(1, timer[1]);
@@ -119,25 +121,20 @@ function set_initial_vars() {
   appmode = $("[name=appmode]:checked").val();
   switch (appmode) {
   case "clock":
-    $("#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn").show();
+    $("#timer1,#timer2,#delay,#pauseinfo,#pausebtn").show();
     $("#timer1,#timer2").removeClass("lose");
-    $("#player1,#player2").show();
-    $("#scorecontainer").hide();
+    $("#score1container,#score2container,#gamemode").hide();
     break;
   case "score":
-    $("#scorecontainer").show();
-    $("#scorecontainer").addClass("scorecontainer_scoreonly").removeClass("scorecontainer");
+    $("#timer1,#timer2,#delay,#pauseinfo,#pausebtn").hide();
+    $("#score1container,#score2container,#gamemode").show();
     $("#score1,#score2").addClass("score_scoreonly");
-    $("#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn").hide();
-    $("#player1,#player2").show();
     break;
   default: //full
-    $("#timer1,#timer2,#delay1,#delay2,#pauseinfo,#pausebtn").show();
+    $("#timer1,#timer2,#delay,#pauseinfo,#pausebtn").show();
     $("#timer1,#timer2").removeClass("lose");
-    $("#scorecontainer").removeClass("scorecontainer_scoreonly").addClass("scorecontainer");
+    $("#score1container,#score2container,#gamemode").show();
     $("#score1,#score2").removeClass("score_scoreonly");
-    $("#scorecontainer").show();
-    $("#player1,#player2").show();
     break;
   }
   soundflg = $("[name=sound]").prop("checked");
@@ -148,7 +145,7 @@ function set_initial_vars() {
 function pause_in() {
   pauseflg = true;
   $("#pauseinfo").show();
-  $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', false); //ボタンクリックを有効化
+  $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").removeClass("btndisable"); //ボタンクリックを有効化
   $("#timer1,#timer2").removeClass("teban noteban").addClass("teban_pause"); //クロックを無手番に
 }
 
@@ -156,7 +153,7 @@ function pause_in() {
 function pause_out() {
   pauseflg = false;
   $("#pauseinfo").hide();
-  $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").prop('disabled', true); //ボタンクリックを無効化
+  $("#settingbtn,#score1up,#score1dn,#score2up,#score2dn").addClass("btndisable"); //ボタンクリックを無効化
 }
 
 //クロックを表示
@@ -168,7 +165,8 @@ function disp_timer(turn, time) {
 }
 
 //クロック表示場所をクリック(タップ)したときの処理
-function tap_timerarea(tappos) {
+function tap_timerarea(idname) {
+  tappos = Number(idname.substr(5,1));
   //クロック稼働中で相手側(グレーアウト側)をクリックしたときは何もしない
   //＝相手の手番、またはポーズのときは以下の処理を実行
   if (turn != tappos && pauseflg == false) { return; }
@@ -181,33 +179,16 @@ function tap_timerarea(tappos) {
 
   stopTimer(); //自分方のクロックを止める
 
-  delay = delaytime; //保障時間を設定
-  $("#delay"+turn).text(("00"+delay).substr(-2));
+  delay = delaytime; //保障時間を設定して表示
+  $("#delay").text(("00"+delay).substr(-2)).show();
 
   startTimer(turn); //相手方のクロックをスタートさせる
 
   //クロックの稼働/停止を切替え
-  switch (turn) {
-    case 1:
-      //右側を停止
-      $("#delay2").hide();
-      $("#timer2").removeClass("teban teban_pause").addClass("noteban");
-      //左側のクロックを稼働
-      $("#delay1").show();
-      $("#timer1").removeClass("noteban teban_pause").addClass("teban");
-      break;
-    case 2:
-      //左側を停止
-      $("#delay1").hide();
-      $("#timer1").removeClass("teban teban_pause").addClass("noteban");
-      //右側のクロックを稼働
-      $("#delay2").show();
-      $("#timer2").removeClass("noteban teban_pause").addClass("teban");
-      break;
-    default:
-      alert("wrong! turn="+turn+" tappos="+tappos);
-      break;
-  }
+  nonturn = turn==1 ? 2 : 1; //手番じゃないほう
+  $("#timer"+turn).removeClass("noteban teban_pause").addClass("teban");
+  $("#timer"+nonturn).removeClass("teban teban_pause").addClass("noteban");
+  $("#delay").css("grid-area", "timer"+turn); //delay表示位置を移動
 }
 
 function startTimer(turn) {
@@ -223,10 +204,10 @@ function countdown(turn) {
   if (delay > 0) {
     //保障時間内
     delay -= clockspd / 1000;
-    $("#delay"+turn).text(("00"+Math.floor(delay)).substr(-2));
+    $("#delay").text(("00"+Math.floor(delay)).substr(-2));
   } else {
     //保障時間切れ後
-    $("#delay"+turn).hide();
+    $("#delay").hide();
     timer[turn] -= clockspd / 1000;
     if (timer[turn] < 0) { timeup_lose(turn); return; } //切れ負け処理
     disp_timer(turn, timer[turn]);

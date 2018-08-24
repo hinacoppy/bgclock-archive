@@ -21,46 +21,31 @@ body{
   grid-template-columns: 50% 50%;
   grid-template-rows: 10% 20% 60% 10%;
   grid-template-areas:
-     'player1        player2'
-     'scorecontainer scorecontainer'
-     'timer1         timer2' /* delay1 delay2 pauseinfo もここに重ねる */
-     'pausebtn       settingbtn';
+     'player1 player2'
+     'score1container score2container'
+     'timer1 timer2'
+     'pausebtn settingbtn';
   justify-items: stretch;
   align-items: stretch; /* 上下方向に中央揃え */
-  background-color: #efe;
 }
 #player1{
   grid-area: player1;
+  justify-self: center;
 }
 #player2{
   grid-area: player2;
+  justify-self: center;
 }
-#scorecontainer{
-  grid-area: scorecontainer;
+#score1container{
+  grid-area: score1container;
+  justify-self: center;
 }
-#score1{
-  grid-area: score1;
-}
-#score2{
-  grid-area: score2;
-}
-#score1up{
-  grid-area: score1up;
-}
-#score1dn{
-  grid-area: score1dn;
-}
-#score2up{
-  grid-area: score2up;
-}
-#score2dn{
-  grid-area: score2dn;
+#score2container{
+  grid-area: score2container;
+  justify-self: center;
 }
 #gamemode{
-  grid-area: gamemode;
-}
-#crawford{
-  grid-area: crawford;
+  grid-area: 1/1/3/3;
 }
 #timer1{
   grid-area: timer1;
@@ -72,30 +57,29 @@ body{
   align-self: center;
   justify-self: right;
 }
-#delay1{
-  grid-area: timer1;
-}
-#delay2{
-  grid-area: timer2;
+#delay{
+/*  grid-area: 1/1/4/3;*/
+  grid-area: timer1; /* 初期表示位置は左側に */
+  align-self: center; /* 上寄せ */
+  justify-self: center;
+  pointer-events: none; /* タップイベントを無効化(下に透過) */
 }
 #pauseinfo{
   grid-area: 3/1/4/3;
   justify-self: center;
   align-self: center;
-  background-color: #dfd;
-  color: #00f;
-  padding: 3vh 4vh;
-  z-index: 3;
 }
 #pausebtn{
   grid-area: pausebtn;
   justify-self: center;
-  width: 50%;
+  align-self: center;
+  margin-top: 1vh;
 }
 #settingbtn{
   grid-area: settingbtn;
   justify-self: center;
-  width: 50%;
+  align-self: center;
+  margin-top: 1vh;
 }
 /* object decorations ------------------------------------- */
 .infotext{
@@ -103,14 +87,16 @@ body{
   text-align: center;
 }
 .score{
+  width: 15vw;
   font-size: 7vw;
-  background-color: #fdd;
-  justify-self: stretch;
   text-align: center;
+  border-radius: 20%;
+  margin: 0 1vw;
+  background-color: #fdd;
 }
 .score_scoreonly{
+  width: 30vw;
   font-size: 20vw;
-  margin: 1vh 1vw;
 }
 .timer{
   font-family: 'DSEG7-Classic', 'Arial Black', 'Meiryo UI';
@@ -126,14 +112,25 @@ body{
   z-index: 2;
 }
 .updownbtn{
-  font-size: 1vw;
-  margin: 1em 0;
-  padding: 1em 2em;
+  font-size: 3vw;
+  padding: 0.5em 0.5em;
+  border-radius: 2.0em;
 }
 .oparationbtn{
   font-size: 1.6vw;
-  margin: 1em;
   padding: 0.5em 2em;
+  border-radius: 1.6em;
+  margin-top: 1vh;
+}
+.btnenable{
+  border: 2px solid #4ef;
+  background-color: #adf;
+  border-color: #3af;
+}
+.btndisable{
+  background-color: #ddd;
+  border-color: #aaa;
+  color: #aaa;
 }
 .teban{
   background-color: #ffa;
@@ -152,39 +149,29 @@ body{
   color: #f00;
 }
 .scorecontainer{
-  display: grid; /* Grid Layout でコンテンツを配置 */
-  grid-template-columns: 10% 20% 40% 20% 10%;
-  grid-template-rows: 50% 50%;
-  grid-template-areas:
-     'score1up score1 gamemode score2 score2up'
-     'score1dn score1 crawford score2 score2dn';
-  justify-items: center;
+  display: flex;
   align-items: center;
-  background-color: #cef;
+  padding-bottom: 1vh;
 }
-.scorecontainer_scoreonly{
-  display: grid;
-  grid-template-columns: 10% 40% 40% 10%;
-  grid-template-rows: 20% 40% 40%;
-  grid-template-areas:
-     'gamemode gamemode crawford crawford'
-     'score1up score1 score2 score2up'
-     'score1dn score1 score2 score2dn';
-  justify-items: center;
-  align-items: center;
-  background-color: #bfe;
+.pauseinfo{
+  font-size: 3vw;
+  text-align: center;
+  background-color: #dfd;
+  color: #00f;
+  padding: 3vh 4vh;
+  z-index: 3;
 }
 /* settingwindow decorations ------------------------------------- */
 #settingwindow{
   position: absolute;
   display: none;
   z-index: 5;
-  background-color: #dff;
 }
 #settingwindow input,select{
   font-size: 100%;
 }
 .popupwindow{
+  background-color: #dff;
   border: 2px solid #00f;
   padding: 1em 2em;
   font-size: 1.8vw;
