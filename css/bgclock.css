@@ -73,13 +73,11 @@ body{
   grid-area: pausebtn;
   justify-self: center;
   align-self: center;
-  margin-top: 1vh;
 }
 #settingbtn{
   grid-area: settingbtn;
   justify-self: center;
   align-self: center;
-  margin-top: 1vh;
 }
 /* object decorations ------------------------------------- */
 .infotext{
@@ -114,16 +112,17 @@ body{
 .updownbtn{
   font-size: 3vw;
   padding: 0.5em 0.5em;
+  border: 4px solid;
   border-radius: 2.0em;
 }
 .oparationbtn{
-  font-size: 1.6vw;
-  padding: 0.5em 2em;
+  border: 4px solid;
+  font-size: 1.8vw;
+  padding: 0.5em 3em;
   border-radius: 1.6em;
   margin-top: 1vh;
 }
 .btnenable{
-  border: 2px solid #4ef;
   background-color: #adf;
   border-color: #3af;
 }
@@ -154,11 +153,11 @@ body{
   padding-bottom: 1vh;
 }
 .pauseinfo{
-  font-size: 3vw;
+  padding: 3vh 5vw;
+  font-size: 4vw;
   text-align: center;
   background-color: #dfd;
   color: #00f;
-  padding: 3vh 4vh;
   z-index: 3;
 }
 /* settingwindow decorations ------------------------------------- */
@@ -172,7 +171,7 @@ body{
 }
 .popupwindow{
   background-color: #dff;
-  border: 2px solid #00f;
+  border: 3px solid #00f;
   padding: 1em 2em;
   font-size: 1.8vw;
 }
