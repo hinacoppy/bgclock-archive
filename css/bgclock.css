@@ -8,6 +8,7 @@ body{
   min-height: 100%;
   height: 100%;
   background-color: #efe;
+  font-family: 'Arial', 'Meiryo UI';
 }
 @font-face {
   /* https://www.keshikan.net/fonts.html */
@@ -25,59 +26,45 @@ body{
      'score1container score2container'
      'timer1 timer2'
      'pausebtn settingbtn';
-  justify-items: stretch;
-  align-items: stretch; /* 上下方向に中央揃え */
+  align-items: center; /* 子アイテムはデフォで上下左右に中央揃え */
+  justify-items: center;
 }
 #player1{
   grid-area: player1;
-  justify-self: center;
 }
 #player2{
   grid-area: player2;
-  justify-self: center;
 }
 #score1container{
   grid-area: score1container;
-  justify-self: center;
 }
 #score2container{
   grid-area: score2container;
-  justify-self: center;
 }
 #gamemode{
   grid-area: 1/1/3/3;
+  align-self: start; /* 上揃え */
 }
 #timer1{
   grid-area: timer1;
-  align-self: center;
-  justify-self: left;
+  justify-self: left; /* 左寄せ */
 }
 #timer2{
   grid-area: timer2;
-  align-self: center;
-  justify-self: right;
+  justify-self: right; /* 右寄せ */
 }
 #delay{
-/*  grid-area: 1/1/4/3;*/
-  grid-area: timer1; /* 初期表示位置は左側に */
-  align-self: center; /* 上寄せ */
-  justify-self: center;
+  grid-area: timer1; /* 初期位置はtimer1に重ねる */
   pointer-events: none; /* タップイベントを無効化(下に透過) */
 }
 #pauseinfo{
   grid-area: 3/1/4/3;
-  justify-self: center;
-  align-self: center;
 }
 #pausebtn{
   grid-area: pausebtn;
-  justify-self: center;
-  align-self: center;
 }
 #settingbtn{
   grid-area: settingbtn;
-  justify-self: center;
-  align-self: center;
 }
 /* object decorations ------------------------------------- */
 .infotext{
@@ -98,33 +85,31 @@ body{
 }
 .timer{
   font-family: 'DSEG7-Classic', 'Arial Black', 'Meiryo UI';
-  margin: 2vh 1vw 2vh 1vw;
+  margin: 2vh 1vw;
   padding: 5vh 0;
 }
 .delay{
-  justify-self: center;
-  align-self: center;
   font-size: 10vw;
-  background-color: rgba( 192, 192, 255, 0.8 );
+  background-color: rgba( 192, 192, 255, 0.7 );
   padding: 1vh 1vw;
   z-index: 2;
 }
 .updownbtn{
   font-size: 3vw;
-  padding: 0.5em 0.5em;
+  padding: 3vh 2vw;
   border: 4px solid;
-  border-radius: 2.0em;
+  border-radius: 10vw;
 }
 .oparationbtn{
+  font-size: 2vw;
+  padding: 2vh 6vw;
   border: 4px solid;
-  font-size: 1.8vw;
-  padding: 0.5em 3em;
-  border-radius: 1.6em;
+  border-radius: 4vw;
   margin-top: 1vh;
 }
 .btnenable{
   background-color: #adf;
-  border-color: #3af;
+  border-color: #29f;
 }
 .btndisable{
   background-color: #ddd;
@@ -150,14 +135,12 @@ body{
 .scorecontainer{
   display: flex;
   align-items: center;
-  padding-bottom: 1vh;
 }
 .pauseinfo{
-  padding: 3vh 5vw;
   font-size: 4vw;
-  text-align: center;
   background-color: #dfd;
   color: #00f;
+  padding: 3vh 5vw;
   z-index: 3;
 }
 /* settingwindow decorations ------------------------------------- */
@@ -172,14 +155,15 @@ body{
 .popupwindow{
   background-color: #dff;
   border: 3px solid #00f;
-  padding: 1em 2em;
+  padding: 2vh 4vw;
   font-size: 1.8vw;
 }
 .popuptitle{
-  font-size: 120%;
-  background-color: #48f;
+  font-size: 2.2vw;
   color: #fff;
-  padding: 1em;
+  background-color: #46f;
+  padding: 2vh 2vw;
+  margin-bottom: 2vh;
 }
 /* toggle switch ----------------------------------------- */
 /* (参考) https://www.w3schools.com/howto/howto_css_switch.asp */
@@ -200,6 +184,7 @@ body{
   bottom: 0;
   background-color: #aaa;
   transition: .3s;
+  border-radius: 1.6em;
 }
 .slider:before {
   position: absolute;
@@ -210,6 +195,7 @@ body{
   bottom: 0.2em;
   background-color: #fff;
   transition: .3s;
+  border-radius: 50%;
 }
 input:checked + .slider {
   background-color: #29f;
@@ -217,14 +203,6 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(2.0em);
   -webkit-transform: translateX(2.0em);
-  -ms-transform: translateX(2.0em);
-}
-/* Rounded sliders */
-.slider.round {
-  border-radius: 1.6em;
-}
-.slider.round:before {
-  border-radius: 50%;
 }
 /* Segmented Control ----------------------------------------- */
 /* (参考) https://ginpen.com/2012/12/11/segmented-control/ */
@@ -233,8 +211,8 @@ input:checked + .slider:before {
 }
 .segmented .label {
     background-color: #eee;
-    border: 1px solid #ccc;
-    color: #777;
+    border: 1px solid #aaa;
+    color: #888;
     float: left;
     padding: 0.5em 1em;
     text-align: center;
@@ -246,11 +224,4 @@ input:checked + .slider:before {
 .segmented input:checked + .label {
     background-color: #29f;
     color: #fff;
-}
-/* 小技（タップした際の黒ずみ除去 / 長押しでメニューを開かない / テキスト選択不可 / スクロール不可）*/
-/* (参考) http://techblog.kayac.com/2016/12/12/090000 */
-* {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-/*  -webkit-touch-callout: none;*/
-/*  -webkit-user-select: none;*/
 }

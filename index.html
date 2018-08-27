@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
   <meta name="description" content="Backgammon Clock and Score board App">
   <meta name="author" content="(C)hinacoppy 2018">
   <link rel="stylesheet" href="css/bgclock.css">
@@ -27,8 +27,8 @@
 <audio id="buzzer" src="sounds/warning2.mp3"  preload="auto"></audio>
 
 <div id="container">
-<div id="player1" class="infotext">Player_L</div>
-<div id="player2" class="infotext">Player_R</div>
+ <div id="player1" class="infotext">Player_L</div>
+ <div id="player2" class="infotext">Player_R</div>
 
  <div id="gamemode" class="infotext">Match game to 5</div>
 
@@ -56,7 +56,7 @@
 
 <!-- 設定画面 -->
 <div id="settingwindow" class="popupwindow">
-<p class="popuptitle">### Backgammon Clock and Score board App Settings ###</p>
+<div class="popuptitle">### Backgammon Clock and Score board App Settings ###</div>
 <table>
 <tr><td>App mode:</td><td>
   <span id="appmode" class="segmented">
@@ -65,8 +65,8 @@
     <label><input type="radio" name="appmode" value="clock"><span class="label">only Clock</span></label>
   </span>
 </td></tr>
-<tr><td>Player1 (left):</td><td><input type="text" id="playername1" value="Player_L"></td></tr>
-<tr><td>Player2 (right):</td><td><input type="text" id="playername2" value="Player_R"></td></tr>
+<tr><td>Player name:</td><td>(L)<input type="text" id="playername1" value="Player_L">
+                       &emsp;(R)<input type="text" id="playername2" value="Player_R"></td></tr>
 <tr><td>Match length:</td><td>
 <select id="matchlength" name="matchlength">
 <option value="0">0</option>
@@ -146,10 +146,10 @@
 </select>
 </td></tr>
 <tr><td>Sound:</td><td>
-<label class="switch"><input type="checkbox" name="sound" checked><span class="slider round"></span></label>
+<label class="switch"><input type="checkbox" name="sound" checked><span class="slider"></span></label>
 </td></tr>
 <tr id="tr_vibration"><td>Vibration:</td><td>
-<label class="switch"><input type="checkbox" name="vibration"><span class="slider round"></span></label>
+<label class="switch"><input type="checkbox" name="vibration"><span class="slider"></span></label>
 </td></tr>
 </table>
 
