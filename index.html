@@ -65,8 +65,8 @@
     <label><input type="radio" name="appmode" value="clock"><span class="label">only Clock</span></label>
   </span>
 </td></tr>
-<tr><td>Player name:</td><td>(L)<input type="text" id="playername1" value="Player_L">
-                       &emsp;(R)<input type="text" id="playername2" value="Player_R"></td></tr>
+<tr><td>Player name:</td><td>(L)<input type="text" id="playername1" size="15" value="Player_L">
+                       &emsp;(R)<input type="text" id="playername2" size="15" value="Player_R"></td></tr>
 <tr><td>Match length:</td><td>
 <select id="matchlength" name="matchlength">
 <option value="0">0</option>
@@ -153,9 +153,9 @@
 </td></tr>
 </table>
 
-<input type="button" id="applybtn" class="oparationbtn btnenable" value="APPLY">
-<input type="button" id="cancelbtn" class="oparationbtn btnenable" value="CANCEL">
-<a href="help.html" target="bgclockhelp"><input type="button" id="helpbtn" class="oparationbtn btnenable" value="HELP"></a>
+<div id="applybtn" class="oparationbtn btnenable">APPLY</div>
+<div id="cancelbtn" class="oparationbtn btnenable">CANCEL</div>
+<a href="help.html" target="bgclockhelp"><div id="helpbtn" class="oparationbtn btnenable">HELP</div></a>
 </div>
 
 <!--  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
