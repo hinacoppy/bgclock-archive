@@ -234,7 +234,10 @@ function timeup_lose(turn) {
 //音を鳴らす
 function sound(type) {
   if (soundflg) {
-    document.getElementById(type).play(); //音の種類は引数で指定
+    var audio = document.getElementById(type);
+    audio.load();
+    audio.play();
+//    document.getElementById(type).play(); //音の種類は引数で指定
   }
 }
 
