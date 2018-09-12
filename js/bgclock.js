@@ -183,7 +183,7 @@ function tap_timerarea(idname) {
     pause_out();
   }
   turn = ( tappos==1 ? 2 : tappos==2 ? 1 : 0 ); //手番切替え
-  sound("tap"); vibration("tap");
+  sound("tap"+turn); vibration("tap");
 
   stopTimer(); //自分方のクロックを止める
 
@@ -235,7 +235,7 @@ function timeup_lose(turn) {
 function sound(type) {
   if (soundflg) {
     var audio = $('#'+type).get(0); //音の種類は引数で指定
-    audio.load(); //連続再生に対応
+    //audio.load(); //連続再生に対応
     audio.play();
   }
 }
