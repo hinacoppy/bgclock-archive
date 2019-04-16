@@ -131,17 +131,20 @@ function set_initial_vars() {
     $("#timer1,#timer2,#delay,#pauseinfo,#pausebtn").show();
     $("#timer1,#timer2").removeClass("lose");
     $("#score1container,#score2container,#gamemode").hide();
+    $("#container").removeClass("container_full container_score").addClass("container_clock");
     break;
   case "score":
     $("#timer1,#timer2,#delay,#pauseinfo,#pausebtn").hide();
     $("#score1container,#score2container,#gamemode").show();
     $("#score1,#score2").addClass("score_scoreonly");
+    $("#container").removeClass("container_full container_clock").addClass("container_score");
     break;
   default: //full
     $("#timer1,#timer2,#delay,#pauseinfo,#pausebtn").show();
     $("#timer1,#timer2").removeClass("lose");
     $("#score1container,#score2container,#gamemode").show();
     $("#score1,#score2").removeClass("score_scoreonly");
+    $("#container").removeClass("container_score container_clock").addClass("container_full");
     break;
   }
   soundflg = $("[name=sound]").prop("checked");

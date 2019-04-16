@@ -23,7 +23,7 @@ a {
 #container{
   display: grid; /* Grid Layout でコンテンツを配置 */
   grid-template-columns: 50% 50%;
-  grid-template-rows: 10% 20% 60% 10%;
+  /*  grid-template-rows は App mode 毎に設定を変えるため、ここでは定義しない */
   grid-template-areas:
      'player1 player2'
      'score1container score2container'
@@ -68,6 +68,16 @@ a {
 }
 #settingbtn{
   grid-area: settingbtn;
+}
+/* grid definitions for App mode -------------------------- */
+.container_full{
+  grid-template-rows: 10% 20% 60% 10%;
+}
+.container_score{
+  grid-template-rows: 10% 80% 0% 10%;
+}
+.container_clock{
+  grid-template-rows: 10% 0% 80% 10%;
 }
 /* object decorations ------------------------------------- */
 .infotext{
